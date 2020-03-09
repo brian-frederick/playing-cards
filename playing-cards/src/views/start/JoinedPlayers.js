@@ -1,9 +1,8 @@
 import React from 'react'
 import { css } from "glamor"
 import { graphql } from 'react-apollo'
-import ListPlayers from './graphQL/queries/ListPlayers'
-import AddPlayer from './AddPlayer';
-import NewPlayerSubscription from './graphQL/subscriptions/NewPlayerSubscription'
+import ListPlayers from '../../graphQL/queries/ListPlayers'
+import NewPlayerSubscription from '../../graphQL/subscriptions/NewPlayerSubscription'
 
 class JoinedPlayers extends React.Component {
     componentWillMount(){

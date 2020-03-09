@@ -1,10 +1,6 @@
 import React from 'react'
-import { graphql } from 'react-apollo'
-import { css } from 'glamor'
 import AddPlayer from './AddPlayer'
 import JoinedPlayers from './JoinedPlayers'
-import Play from './play/Play'
-import { useParams } from 'react-router-dom'
 
 export default class JoinGame extends React.Component {
 

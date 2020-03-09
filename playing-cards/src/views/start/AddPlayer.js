@@ -1,13 +1,12 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import { css } from 'glamor'
-import CreatePlayer from './graphQL/mutations/CreatePlayer'
-import ListPlayers from './graphQL/queries/ListPlayers'
+import CreatePlayer from '../../graphQL/mutations/CreatePlayer'
+import ListPlayers from '../../graphQL/queries/ListPlayers'
 
 class AddPlayer extends React.Component {
     state = {
         id: '',
-        isAdmin: false, 
         gameId: ''       
     }
     
@@ -16,7 +15,8 @@ class AddPlayer extends React.Component {
     }
 
     joinGame = () => {
-        const { id, isAdmin, gameId } = this.state;
+        const { id, gameId } = this.state;
+        const isAdmin = false;
         this.props.onAdd({
             id,
             isAdmin,

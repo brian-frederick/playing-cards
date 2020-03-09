@@ -1,14 +1,12 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import createGame from './GraphQL/mutations/CreateGame'
-import getGame from './GraphQL/queries/GetGame'
+import createGame from '../../graphQL/mutations/CreateGame'
 import { css } from 'glamor'
 
 class StartAGame extends React.Component {
     state = {
         type:'',
-        stage: '',
-        admin: '',
+        stage: 'creating',
     }
 
     onChange = (key, value) => {
@@ -16,15 +14,15 @@ class StartAGame extends React.Component {
     }
 
     startGame = () => {
-        const { type, stage, admin } = this.state;
+        const { type, stage } = this.state;
         let url = "/join/";        
+        let adminParam = "?admin=true"
         
         this.props.onCreate({
             type,
             stage,
-            admin
         }).then((result) => {
-            url += result.data.createGame.id
+            url += result.data.createGame.id + adminParam;
             this.props.history.push(url);
         });
     }
@@ -36,18 +34,6 @@ class StartAGame extends React.Component {
                     value={this.state.type}
                     onChange={evt => this.onChange('type', evt.target.value)}
                     placeholder='Game Type'
-                    {...css(styles.input)}
-                />
-                <input
-                    value={this.state.stage}
-                    onChange={evt => this.onChange('stage', evt.target.value)}
-                    placeholder='stage'
-                    {...css(styles.input)}
-                />
-                <input
-                    value={this.state.admin}
-                    onChange={evt => this.onChange('admin', evt.target.value)}
-                    placeholder='admin'
                     {...css(styles.input)}
                 />
                 <button onClick={this.startGame} {...css(styles.button)}>Create Game</button>
@@ -78,8 +64,8 @@ const styles = {
     button: {
         border: 'none',
         background: 'rgba(0,0,0, .1)',
-        width: 250,
-        height: 'pointer',
+        width: '200px',
+        height: '30px',
         margin: '15px 0px'
     },
     container: {

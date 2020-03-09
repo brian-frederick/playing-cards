@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import Nav from "./Nav";
-
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import StartAGame from './StartAGame'
-//import GetAGame from './Ge'
-//import Game from './Game';
-import JoinGame from "./JoinGame";
-import Play from './play/Play'
+import StartAGame from './views/start/StartAGame'
+import JoinGame from './views/start/JoinGame'
+import Play from './views/play/Play'
 
 
 class App extends Component {
