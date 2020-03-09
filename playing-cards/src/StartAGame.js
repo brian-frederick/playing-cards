@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import createGame from './mutations/CreateGame'
-import getGame from './queries/GetGame'
+import createGame from './GraphQL/mutations/CreateGame'
+import getGame from './GraphQL/queries/GetGame'
 import { css } from 'glamor'
 
 class StartAGame extends React.Component {
@@ -14,13 +14,19 @@ class StartAGame extends React.Component {
     onChange = (key, value) => {
         this.setState({ [key]: value })
     }
+
     startGame = () => {
-        const { type, stage, admin } = this.state
+        const { type, stage, admin } = this.state;
+        let url = "/join/";        
+        
         this.props.onCreate({
             type,
             stage,
             admin
-        })
+        }).then((result) => {
+            url += result.data.createGame.id
+            this.props.history.push(url);
+        });
     }
 
     render() {
@@ -46,8 +52,6 @@ class StartAGame extends React.Component {
                 />
                 <button onClick={this.startGame} {...css(styles.button)}>Create Game</button>
             </div>
-            
-
         )
     }
 }

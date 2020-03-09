@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
+import Nav from "./Nav";
 
-import AWSAppSyncClient from "aws-appsync";
-import { Rehydrated } from 'aws-appsync-react';
-import { ApolloProvider } from 'react-apollo';
-import appSyncConfig from './appsync';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import StartAGame from './StartAGame'
+//import GetAGame from './Ge'
+//import Game from './Game';
+import JoinGame from "./JoinGame";
+import Play from './play/Play'
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <StartAGame />
+        <Router>
+          <div>
+            <Nav />
+            <Switch>
+              <Route exact path="/" component={StartAGame} />
+              <Route exact path="/join/:gameId" component={JoinGame} />
+              <Route exact path="/play/:gameId" component={Play} />
+            </Switch>
+          </div>
+        </Router>
       </div>
     );
   }
 }
 
-const client = new AWSAppSyncClient({
-  url: appSyncConfig.aws_appsync_graphqlEndpoint,
-  region: appSyncConfig.region,
-  auth: {
-      type: appSyncConfig.aws_appsync_authenticationType,
-      apiKey: appSyncConfig.apiKey,
-  }
-});
 
-const WithProvider = () => (
-  <ApolloProvider client={client}>
-      <Rehydrated>
-          <App />
-      </Rehydrated>
-  </ApolloProvider>
-);
 
-export default WithProvider;
+export default App;
