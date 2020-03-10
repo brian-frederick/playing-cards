@@ -1,13 +1,14 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import { css } from 'glamor'
+
 import CreatePlayer from '../../graphQL/mutations/CreatePlayer'
 import ListPlayers from '../../graphQL/queries/ListPlayers'
 
 class AddPlayer extends React.Component {
     state = {
         id: '',
-        gameId: ''       
+        playerAdded: false,
     }
     
     onChange = (key, value) => {
@@ -15,37 +16,34 @@ class AddPlayer extends React.Component {
     }
 
     joinGame = () => {
-        const { id, gameId } = this.state;
-        const isAdmin = false;
+
+        const { id } = this.state;
+        const gameId = this.props.gameId;
+        const isAdmin = this.props.isAdmin;
+
         this.props.onAdd({
             id,
             isAdmin,
             gameId
-        })
+        });
+
+        this.setState({playerAdded: true});
     }
 
     render(){
         return (
-            <div {...css(styles.container)}>
-                <input
-                    value={this.state.name}
-                    onChange={evt => this.onChange('id', evt.target.value)}
-                    placeholder='Name'
-                    {...css(styles.input)}
-                />
-                <input
-                    value={this.state.isAdmin}
-                    onChange={evt => this.onChange('isAdmin', evt.target.value)}
-                    placeholder='isAdmin'
-                    {...css(styles.input)}
-                />
-                <input
-                    value={this.state.gameId}
-                    onChange={evt => this.onChange('gameId', evt.target.value)}
-                    placeholder='Game Id'
-                    {...css(styles.input)}
-                />
-                <button onClick={this.joinGame} {...css(styles.button)}>Join Game</button>
+            <div>
+                { !this.state.playerAdded &&
+                    <div {...css(styles.container)}>
+                        <input
+                            value={this.state.name}
+                            onChange={evt => this.onChange('id', evt.target.value)}
+                            placeholder='Name'
+                            {...css(styles.input)}
+                        />
+                        <button onClick={this.joinGame} {...css(styles.button)}>Join Game</button>
+                    </div>
+                }
             </div>
         )
     }

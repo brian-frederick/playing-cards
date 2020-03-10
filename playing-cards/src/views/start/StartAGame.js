@@ -16,7 +16,7 @@ class StartAGame extends React.Component {
     startGame = () => {
         const { type, stage } = this.state;
         let url = "/join/";        
-        let adminParam = "?admin=true"
+        let adminParam = "?isAdmin=true"
         
         this.props.onCreate({
             type,
